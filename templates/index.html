@@ -90,25 +90,8 @@
       border-radius: 18px;
       padding: 12px;
       display: inline-block;
-      margin: 10px 0 2px 0;
+      margin: 10px 0;
       box-shadow: 0 8px 20px rgba(0, 43, 127, 0.08);
-    }
-    .serenazgo-box {
-      background-color: #001f5c;
-      color: #ffcc00;
-      font-weight: bold;
-      padding: 7px 16px;
-      border-radius: 50px;
-      display: inline-block;
-      margin-top: 6px;
-      margin-bottom: 10px;
-      font-size: 0.85rem;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      border: 1px solid #ffcc00;
-    }
-    .serenazgo-box i {
-      margin-right: 6px;
     }
     .features-box {
       background: #f8f9fa;
@@ -156,10 +139,37 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      text-decoration: none;
     }
     .btn-action:hover {
       background-color: #e6b800;
       color: #001f5c;
+      transform: translateY(-2px);
+    }
+    /* Estilo para el botón de llamada de Serenazgo al final */
+    .btn-serenazgo {
+      background-color: #001f5c;
+      color: #ffcc00;
+      font-weight: 800;
+      border: 2px solid #ffcc00;
+      border-radius: 14px;
+      padding: 12px;
+      width: 100%;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      box-shadow: 0 6px 15px rgba(0, 31, 92, 0.3);
+      transition: all 0.25s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .btn-serenazgo:hover {
+      background-color: #001233;
+      color: #ffdd33;
       transform: translateY(-2px);
     }
     .footer-info {
@@ -204,19 +214,12 @@
         </div>
         <p class="text-muted small mb-2" style="font-size: 0.82rem; line-height: 1.4;">Escanea el código QR con tu celular y califica la atención recibida al salir de nuestras instalaciones.</p>
 
-        <!-- Código QR con enlace oficial directo -->
+        <!-- Código QR que abre directo la encuesta -->
         <div class="qr-container">
           <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://videovigilancia-ascension.onrender.com/encuesta" 
                alt="Código QR Encuesta" 
                class="img-fluid" 
                style="width: 150px; height: 150px;">
-        </div>
-        
-        <!-- Número de Serenazgo (Actualiza con tu número real) -->
-        <div>
-          <div class="serenazgo-box">
-            <i class="fa-solid fa-phone-volume"></i> CENTRAL SERENAZGO: 959 499 459
-          </div>
         </div>
 
         <!-- Características -->
@@ -237,10 +240,16 @@
           </div>
         </div>
 
-        <!-- Botón -->
+        <!-- Botón de Encuesta -->
         <a href="/encuesta" class="btn btn-action">
           <i class="fa-solid fa-clipboard-list"></i> Iniciar Encuesta Aquí <i class="fa-solid fa-chevron-right fs-6"></i>
         </a>
+
+        <!-- NUEVO: Botón de Llamada de Serenazgo al final con un clic -->
+        <a href="tel:959499459" class="btn btn-serenazgo">
+          <i class="fa-solid fa-phone-volume"></i> Central Serenazgo: 959 499 459
+        </a>
+
       </div>
 
     </div>
