@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 
-web: gunicorn app:app
+app = Flask(__name__)
 DB_NAME = 'database/database.db'
 
 def conectar():
