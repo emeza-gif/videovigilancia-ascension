@@ -29,7 +29,7 @@
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       border: none;
-      overflow: hidden; /* Esto asegura que nada sobresalga de las esquinas redondeadas */
+      overflow: hidden;
     }
     .card-header-custom {
       background: linear-gradient(180deg, rgba(0, 26, 77, 0.88) 0%, rgba(0, 38, 115, 0.94) 100%), 
@@ -40,7 +40,6 @@
       padding: 28px 20px 22px 20px;
       text-align: center;
       border-bottom: 4px solid #ffcc00;
-      /* Ajuste exacto para redondear las esquinas superiores junto con la tarjeta */
       border-top-left-radius: 24px;
       border-top-right-radius: 24px;
     }
@@ -91,14 +90,31 @@
       border-radius: 18px;
       padding: 12px;
       display: inline-block;
-      margin: 10px 0;
+      margin: 10px 0 2px 0;
       box-shadow: 0 8px 20px rgba(0, 43, 127, 0.08);
+    }
+    .serenazgo-box {
+      background-color: #001f5c;
+      color: #ffcc00;
+      font-weight: bold;
+      padding: 7px 16px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border: 1px solid #ffcc00;
+    }
+    .serenazgo-box i {
+      margin-right: 6px;
     }
     .features-box {
       background: #f8f9fa;
       border-radius: 12px;
       padding: 10px 5px;
-      margin: 15px 0;
+      margin: 12px 0;
       border: 1px solid #e9ecef;
       display: flex;
       justify-content: space-around;
@@ -163,7 +179,7 @@
   <div class="main-container">
     <div class="card card-modern">
       
-      <!-- Cabecera Institucional con esquinas perfectamente selladas -->
+      <!-- Cabecera Institucional -->
       <div class="card-header-custom">
         <img src="{{ url_for('static', filename='img/logo.png') }}" 
              alt="Escudo Municipalidad de Ascensión" 
@@ -188,13 +204,19 @@
         </div>
         <p class="text-muted small mb-2" style="font-size: 0.82rem; line-height: 1.4;">Escanea el código QR con tu celular y califica la atención recibida al salir de nuestras instalaciones.</p>
 
-        <!-- Código QR -->
+        <!-- Código QR con enlace oficial directo -->
         <div class="qr-container">
-          <img src="{{ url_for('static', filename='img/qr.png') }}" 
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://videovigilancia-ascension.onrender.com/encuesta" 
                alt="Código QR Encuesta" 
                class="img-fluid" 
-               style="width: 150px; height: 150px;"
-               onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://127.0.0.1:5000/encuesta'">
+               style="width: 150px; height: 150px;">
+        </div>
+        
+        <!-- Número de Serenazgo (Actualiza con tu número real) -->
+        <div>
+          <div class="serenazgo-box">
+            <i class="fa-solid fa-phone-volume"></i> CENTRAL SERENAZGO: 959 499 459
+          </div>
         </div>
 
         <!-- Características -->
