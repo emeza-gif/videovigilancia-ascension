@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Satisfacción - Centro de Videovigilancia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #001f5c 0%, #002b7f 100%);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+    .survey-container {
+      max-width: 520px;
+      width: 100%;
+      padding: 15px;
+    }
+    .card-modern {
+      background: #ffffff;
+      color: #002b7f;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border: none;
+      overflow: hidden;
+    }
+    .card-header-custom {
+      background: linear-gradient(180deg, rgba(0, 26, 77, 0.88) 0%, rgba(0, 38, 115, 0.94) 100%), 
+                  url("{{ url_for('static', filename='img/logofondo.png') }}");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      padding: 25px 20px 20px 20px;
+      text-align: center;
+      border-bottom: 4px solid #ffcc00;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+    .logo-img {
+      max-height: 68px;
+      width: auto;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+    }
+    .card-header-custom h6 {
+      font-size: 0.76rem;
+      letter-spacing: 1.5px;
+      color: #e2e8f0;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+    .card-header-custom h5 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .lema-badge {
+      background-color: rgba(255, 204, 0, 0.18);
+      color: #ffcc00;
+      border: 1px solid #ffcc00;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 4px;
+      letter-spacing: 0.8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .question-title {
+      color: #002b7f;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .btn-next {
+      background-color: #ffcc00;
+      color: #001f5c;
+      font-weight: 800;
+      border: none;
+      border-radius: 14px;
+      padding: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      box-shadow: 0 6px 15px rgba(255, 204, 0, 0.4);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-next:hover {
+      background-color: #e6b800;
+      color: #001f5c;
+      transform: translateY(-1px);
+    }
+    .btn-prev {
+      background-color: #e9ecef;
+      color: #495057;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-prev:hover {
+      background-color: #dee2e6;
+      color: #212529;
+    }
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .option-card {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #002b7f;
+      text-align: center;
+      display: block;
+    }
+    .option-card:hover {
+      background: #e9ecef;
+      border-color: #002b7f;
+    }
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      display: none;
+    }
+    .option-card:has(input:checked) {
+      border-color: #002b7f;
+      background: rgba(0, 43, 127, 0.08);
+      font-weight: bold;
+    }
+    .option-row {
+      text-align: left;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #002b7f;
+      font-weight: 500;
+    }
+    .option-row:hover {
+      background: #e9ecef;
+    }
+    .option-row:has(input:checked) {
+      background: rgba(0, 43, 127, 0.1);
+      border-color: #002b7f;
+      font-weight: bold;
+    }
+    .emoji-icon {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .step-indicator {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="survey-container">
+    <div class="card card-modern">
+      
+      <!-- Cabecera Institucional Unificada y Mejorada -->
+      <div class="card-header-custom">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" 
+             alt="Escudo Municipalidad" 
+             class="logo-img"
+             onerror="this.style.display='none'">
+        
+        <h6 class="fw-bold mb-1 text-uppercase">Municipalidad Distrital de Ascensión</h6>
+        <h5 class="fw-black mb-0">CENTRO DE VIDEOVIGILANCIA</h5>
+        
+        <div class="lema-badge">
+          "Ascensión, te quiero Seguro" — 2026
+        </div>
+      </div>
+
+      <!-- Contenido del Formulario -->
+      <div class="card-body p-4">
+        <form action="/guardar" method="POST" id="formEncuesta">
+
+          <!-- Paso 1: Datos de Identificación -->
+          <div class="step active">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 1 de 8 - Identificación</span>
+            </div>
+            <h5 class="question-title mb-1">Datos del Ciudadano</h5>
+            <p class="text-muted small mb-3">Ingrese sus datos para el registro oficial de atención:</p>
+            
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-dark">DNI / N° de Documento</label>
+              <input type="text" name="dni" class="form-control shadow-sm" maxlength="8" placeholder="Ingrese su DNI" style="border-radius: 12px; padding: 12px;" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label small fw-bold text-dark">Nombres y Apellidos</label>
+              <input type="text" name="nombres" class="form-control shadow-sm" placeholder="Ej. Juan Pérez Ramos" style="border-radius: 12px; padding: 12px;" required>
+            </div>
+            <button type="button" class="btn btn-next w-100" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+          </div>
+
+          <!-- Paso 2: Atención Recibida -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 2 de 8</span>
+            </div>
+            <h5 class="question-title mb-3">¿Cómo califica la atención recibida?</h5>
+            
+            <div class="row g-2 mb-4">
+              <div class="col">
+                <label class="option-card">
+                  <input type="radio" name="atencion" value="Excelente" required>
+                  <span class="emoji-icon">😀</span>
+                  <small style="font-size: 0.65rem;">Excelente</small>
+                </label>
+              </div>
+              <div class="col">
+                <label class="option-card">
+                  <input type="radio" name="atencion" value="Buena">
+                  <span class="emoji-icon">🙂</span>
+                  <small style="font-size: 0.65rem;">Buena</small>
+                </label>
+              </div>
+              <div class="col">
+                <label class="option-card">
+                  <input type="radio" name="atencion" value="Regular">
+                  <span class="emoji-icon">😐</span>
+                  <small style="font-size: 0.65rem;">Regular</small>
+                </label>
+              </div>
+              <div class="col">
+                <label class="option-card">
+                  <input type="radio" name="atencion" value="Mala">
+                  <span class="emoji-icon">☹️</span>
+                  <small style="font-size: 0.65rem;">Mala</small>
+                </label>
+              </div>
+              <div class="col">
+                <label class="option-card">
+                  <input type="radio" name="atencion" value="Muy Mala">
+                  <span class="emoji-icon">😡</span>
+                  <small style="font-size: 0.65rem;">Muy Mala</small>
+                </label>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 3: Turno -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 3 de 8</span>
+            </div>
+            <h5 class="question-title mb-3">¿En qué turno fue atendido?</h5>
+            
+            <div class="mb-4">
+              <label class="option-row"><input type="radio" name="turno" value="Mañana" required> ☀️ <strong>Turno Mañana</strong> (06:00 - 14:00)</label>
+              <label class="option-row"><input type="radio" name="turno" value="Tarde"> 🌤️ <strong>Turno Tarde</strong> (14:00 - 22:00)</label>
+              <label class="option-row"><input type="radio" name="turno" value="Noche"> 🌙 <strong>Turno Noche</strong> (22:00 - 06:00)</label>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 4: Servicio Solicitado -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 4 de 8</span>
+            </div>
+            <h5 class="question-title mb-3">¿Qué servicio solicitó?</h5>
+            
+            <div class="mb-4">
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Visualización de cámaras"> 🎥 Visualización de cámaras</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Búsqueda de persona"> 👤 Búsqueda de persona</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Búsqueda de vehículo"> 🚗 Búsqueda de vehículo</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Apoyo a Serenazgo"> 🛡️ Apoyo a Serenazgo</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Otro"> ❓ Otro servicio</label>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 5: Información Obtenida -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 5 de 8</span>
+            </div>
+            <h5 class="question-title mb-3">¿Se logró obtener la información que necesitaba?</h5>
+            
+            <div class="mb-4">
+              <label class="option-row"><input type="radio" name="informacion" value="Sí" required> ✅ Sí, totalmente</label>
+              <label class="option-row"><input type="radio" name="informacion" value="Parcialmente"> 🟡 Parcialmente</label>
+              <label class="option-row"><input type="radio" name="informacion" value="No"> ❌ No se obtuvo</label>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 6: Trato del Operador -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 6 de 8</span>
+            </div>
+            <h5 class="question-title mb-1">¿Cómo fue el trato del operador?</h5>
+            <p class="text-muted small mb-3">Califique la amabilidad y el respeto brindado:</p>
+            
+            <div class="mb-4 text-center">
+              <input type="number" name="trato" min="1" max="5" class="form-control form-control-lg text-center fw-bold mx-auto shadow-sm" style="max-width: 140px; font-size: 2rem; border-radius: 12px; border: 2px solid #002b7f; color: #002b7f;" placeholder="1 - 5" required>
+              <div class="mt-2 text-muted" style="font-size: 0.8rem;">Escala: 1 (Muy deficiente) al 5 (Excelente)</div>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 7: Rapidez -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 7 de 8</span>
+            </div>
+            <h5 class="question-title mb-3">¿La atención fue rápida?</h5>
+            
+            <div class="mb-4">
+              <label class="option-row"><input type="radio" name="rapidez" value="Sí" required> ⚡ Sí, fue oportuna y rápida</label>
+              <label class="option-row"><input type="radio" name="rapidez" value="No"> ⏳ No, demoró demasiado</label>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="button" class="btn btn-next w-50" onclick="nextStep()">Siguiente <i class="fa-solid fa-chevron-right ms-1 fs-6"></i></button>
+            </div>
+          </div>
+
+          <!-- Paso 8: Comentarios -->
+          <div class="step">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="step-indicator">Paso 8 de 8</span>
+            </div>
+            <h5 class="question-title mb-1">¿Desea dejar algún comentario o sugerencia?</h5>
+            <p class="text-muted small mb-3">Sus observaciones nos permiten mejorar el servicio a la ciudadanía:</p>
+            
+            <div class="mb-4">
+              <textarea name="comentarios" class="form-control shadow-sm" rows="4" style="border-radius: 12px; border: 1px solid #ced4da;" placeholder="Escriba aquí sus observaciones..."></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
+              <button type="submit" class="btn btn-next w-50">Finalizar <i class="fa-solid fa-check ms-1"></i></button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step');
+
+    function nextStep() {
+      const activeInputs = steps[currentStep].querySelectorAll('input[required]');
+      let valid = true;
+
+      activeInputs.forEach(input => {
+        if (input.type === 'radio') {
+          const name = input.name;
+          const checked = steps[currentStep].querySelector(`input[name="${name}"]:checked`);
+          if (!checked) valid = false;
+        } else if (!input.value) {
+          valid = false;
+        }
+      });
+
+      if (!valid) {
+        alert('Por favor complete los campos requeridos antes de continuar.');
+        return;
+      }
+
+      steps[currentStep].classList.remove('active');
+      currentStep++;
+      if (currentStep < steps.length) {
+        steps[currentStep].classList.add('active');
+      }
+    }
+
+    function prevStep() {
+      steps[currentStep].classList.remove('active');
+      currentStep--;
+      if (currentStep >= 0) {
+        steps[currentStep].classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
