@@ -137,7 +137,6 @@
     .option-card input[type="checkbox"] {
       display: none;
     }
-    /* Estilo al seleccionar tarjeta */
     .option-card.selected {
       border-color: #002b7f;
       background: rgba(0, 43, 127, 0.08);
@@ -202,7 +201,7 @@
 
       <!-- Contenido del Formulario -->
       <div class="card-body p-4">
-        <form action="/guardar" method="POST" id="formEncuesta">
+        <form action="/guardar-encuesta" method="POST" id="formEncuesta">
 
           <!-- Paso 1: Datos de Identificación -->
           <div class="step active">
@@ -377,7 +376,7 @@
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
-              <button type="submit" class="btn btn-next w-50">Finalizar <i class="fa-solid fa-check ms-1"></i></button>
+              <button type="submit" class="btn btn-next w-50">Enviar encuesta <i class="fa-solid fa-paper-plane ms-1"></i></button>
             </div>
           </div>
 
