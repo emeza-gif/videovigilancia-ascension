@@ -87,7 +87,9 @@ def dashboard():
                            promedio=promedio, 
                            labels=labels, 
                            valores=valores)
-
+@app.route('/panel')
+def panel():
+    return render_template('panel.html')
 if __name__ == '__main__':
     inicializar_db()
     app.run(debug=True)
