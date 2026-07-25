@@ -1,7 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import os
 
 app = Flask(__name__)
+
+# Asegurar que la carpeta database exista
+os.makedirs('database', exist_ok=True)
 DB_NAME = 'database/database.db'
 
 def conectar():
@@ -36,14 +40,15 @@ def index():
 def encuesta():
     return render_template('encuesta.html')
 
-@app.route('/guardar', methods=['POST'])
+# Se actualizó la ruta a '/guardar-encuesta' para que coincida exactamente con tu HTML
+@app.route('/guardar-encuesta', methods=['POST'])
 def guardar():
     dni = request.form.get('dni')
     nombres = request.form.get('nombres')
     
     atencion = request.form.get('atencion')
     turno = request.form.get('turno')
-    solicitudes = request.form.get('solicitud')
+    solicitudes = request.form.getlist('solicitud') # Usar getlist para checkboxes múltiples
     solicitud_str = ', '.join(solicitudes) if isinstance(solicitudes, list) else (solicitudes or '')
     informacion = request.form.get('informacion')
     trato = request.form.get('trato')
@@ -58,7 +63,7 @@ def guardar():
         """, (dni, nombres, atencion, turno, solicitud_str, informacion, trato, rapidez, comentarios, operador))
         con.commit()
 
-    return redirect('/gracias')
+    return redirect(url_for('gracias'))
 
 @app.route('/gracias')
 def gracias():
@@ -93,7 +98,7 @@ def dashboard():
 
 @app.route('/panel')
 def panel():
-    return redirect('/dashboard')
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     inicializar_db()
