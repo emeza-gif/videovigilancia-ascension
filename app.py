@@ -35,14 +35,12 @@ def index():
 @app.route('/encuesta')
 def encuesta():
     return render_template('encuesta.html')
-@app.route('/guardar', methods=['POST'])
 
+@app.route('/guardar', methods=['POST'])
 def guardar():
-    # Nuevos campos de identificación rápida
     dni = request.form.get('dni')
     nombres = request.form.get('nombres')
     
-    # Campos de la encuesta
     atencion = request.form.get('atencion')
     turno = request.form.get('turno')
     solicitudes = request.form.get('solicitud')
@@ -82,14 +80,21 @@ def dashboard():
         labels = [fila[0] for fila in resultados]
         valores = [fila[1] for fila in resultados]
 
-    return render_template('dashboard.html', 
+        # Lista detallada de todas las respuestas para tu tabla en el panel
+        cursor_detalles = con.execute("SELECT id, atencion, trato, comentarios FROM encuestas ORDER BY id DESC")
+        registros = cursor_detalles.fetchall()
+
+    return render_template('panel.html', 
                            total_encuestas=total_encuestas, 
                            promedio=promedio, 
                            labels=labels, 
-                           valores=valores)
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+                           valores=valores,
+                           registros=registros)
+
+@app.route('/panel')
+def panel():
+    return redirect('/dashboard')
+
 if __name__ == '__main__':
     inicializar_db()
     app.run(debug=True)
