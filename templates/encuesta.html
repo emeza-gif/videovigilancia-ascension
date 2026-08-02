@@ -137,7 +137,7 @@
     .option-card input[type="checkbox"] {
       display: none;
     }
-    .option-card.selected {
+    .option-card:has(input:checked) {
       border-color: #002b7f;
       background: rgba(0, 43, 127, 0.08);
       font-weight: bold;
@@ -155,12 +155,11 @@
       gap: 12px;
       color: #002b7f;
       font-weight: 500;
-      transition: all 0.2s ease;
     }
     .option-row:hover {
       background: #e9ecef;
     }
-    .option-row.selected {
+    .option-row:has(input:checked) {
       background: rgba(0, 43, 127, 0.1);
       border-color: #002b7f;
       font-weight: bold;
@@ -201,7 +200,7 @@
 
       <!-- Contenido del Formulario -->
       <div class="card-body p-4">
-        <form action="/guardar-encuesta" method="POST" id="formEncuesta">
+        <form action="/guardar" method="POST" id="formEncuesta">
 
           <!-- Paso 1: Datos de Identificación -->
           <div class="step active">
@@ -231,35 +230,35 @@
             
             <div class="row g-2 mb-4">
               <div class="col">
-                <label class="option-card" onclick="selectCard(this)">
+                <label class="option-card">
                   <input type="radio" name="atencion" value="Excelente" required>
                   <span class="emoji-icon">😀</span>
                   <small style="font-size: 0.65rem;">Excelente</small>
                 </label>
               </div>
               <div class="col">
-                <label class="option-card" onclick="selectCard(this)">
+                <label class="option-card">
                   <input type="radio" name="atencion" value="Buena">
                   <span class="emoji-icon">🙂</span>
                   <small style="font-size: 0.65rem;">Buena</small>
                 </label>
               </div>
               <div class="col">
-                <label class="option-card" onclick="selectCard(this)">
+                <label class="option-card">
                   <input type="radio" name="atencion" value="Regular">
                   <span class="emoji-icon">😐</span>
                   <small style="font-size: 0.65rem;">Regular</small>
                 </label>
               </div>
               <div class="col">
-                <label class="option-card" onclick="selectCard(this)">
+                <label class="option-card">
                   <input type="radio" name="atencion" value="Mala">
                   <span class="emoji-icon">☹️</span>
                   <small style="font-size: 0.65rem;">Mala</small>
                 </label>
               </div>
               <div class="col">
-                <label class="option-card" onclick="selectCard(this)">
+                <label class="option-card">
                   <input type="radio" name="atencion" value="Muy Mala">
                   <span class="emoji-icon">😡</span>
                   <small style="font-size: 0.65rem;">Muy Mala</small>
@@ -280,9 +279,9 @@
             <h5 class="question-title mb-3">¿En qué turno fue atendido?</h5>
             
             <div class="mb-4">
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="turno" value="Mañana" required> ☀️ <strong>Turno Mañana</strong> (06:00 - 14:00)</label>
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="turno" value="Tarde"> 🌤️ <strong>Turno Tarde</strong> (14:00 - 22:00)</label>
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="turno" value="Noche"> 🌙 <strong>Turno Noche</strong> (22:00 - 06:00)</label>
+              <label class="option-row"><input type="radio" name="turno" value="Mañana" required> ☀️ <strong>Turno Mañana</strong> (06:00 - 14:00)</label>
+              <label class="option-row"><input type="radio" name="turno" value="Tarde"> 🌤️ <strong>Turno Tarde</strong> (14:00 - 22:00)</label>
+              <label class="option-row"><input type="radio" name="turno" value="Noche"> 🌙 <strong>Turno Noche</strong> (22:00 - 06:00)</label>
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
@@ -298,11 +297,11 @@
             <h5 class="question-title mb-3">¿Qué servicio solicitó?</h5>
             
             <div class="mb-4">
-              <label class="option-row" onclick="toggleCheckbox(this)"><input type="checkbox" name="solicitud" value="Visualización de cámaras"> 🎥 Visualización de cámaras</label>
-              <label class="option-row" onclick="toggleCheckbox(this)"><input type="checkbox" name="solicitud" value="Búsqueda de persona"> 👤 Búsqueda de persona</label>
-              <label class="option-row" onclick="toggleCheckbox(this)"><input type="checkbox" name="solicitud" value="Búsqueda de vehículo"> 🚗 Búsqueda de vehículo</label>
-              <label class="option-row" onclick="toggleCheckbox(this)"><input type="checkbox" name="solicitud" value="Apoyo a Serenazgo"> 🛡️ Apoyo a Serenazgo</label>
-              <label class="option-row" onclick="toggleCheckbox(this)"><input type="checkbox" name="solicitud" value="Otro"> ❓ Otro servicio</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Visualización de cámaras"> 🎥 Visualización de cámaras</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Búsqueda de persona"> 👤 Búsqueda de persona</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Búsqueda de vehículo"> 🚗 Búsqueda de vehículo</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Apoyo a Serenazgo"> 🛡️ Apoyo a Serenazgo</label>
+              <label class="option-row"><input type="checkbox" name="solicitud" value="Otro"> ❓ Otro servicio</label>
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
@@ -318,9 +317,9 @@
             <h5 class="question-title mb-3">¿Se logró obtener la información que necesitaba?</h5>
             
             <div class="mb-4">
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="informacion" value="Sí" required> ✅ Sí, totalmente</label>
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="informacion" value="Parcialmente"> 🟡 Parcialmente</label>
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="informacion" value="No"> ❌ No se obtuvo</label>
+              <label class="option-row"><input type="radio" name="informacion" value="Sí" required> ✅ Sí, totalmente</label>
+              <label class="option-row"><input type="radio" name="informacion" value="Parcialmente"> 🟡 Parcialmente</label>
+              <label class="option-row"><input type="radio" name="informacion" value="No"> ❌ No se obtuvo</label>
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
@@ -354,8 +353,8 @@
             <h5 class="question-title mb-3">¿La atención fue rápida?</h5>
             
             <div class="mb-4">
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="rapidez" value="Sí" required> ⚡ Sí, fue oportuna y rápida</label>
-              <label class="option-row" onclick="selectRow(this)"><input type="radio" name="rapidez" value="No"> ⏳ No, demoró demasiado</label>
+              <label class="option-row"><input type="radio" name="rapidez" value="Sí" required> ⚡ Sí, fue oportuna y rápida</label>
+              <label class="option-row"><input type="radio" name="rapidez" value="No"> ⏳ No, demoró demasiado</label>
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
@@ -376,7 +375,7 @@
             </div>
             <div class="d-flex gap-2">
               <button type="button" class="btn btn-prev w-50" onclick="prevStep()"><i class="fa-solid fa-chevron-left me-1"></i> Atrás</button>
-              <button type="submit" class="btn btn-next w-50">Enviar encuesta <i class="fa-solid fa-paper-plane ms-1"></i></button>
+              <button type="submit" class="btn btn-next w-50">Finalizar <i class="fa-solid fa-check ms-1"></i></button>
             </div>
           </div>
 
@@ -391,19 +390,16 @@
     const steps = document.querySelectorAll('.step');
 
     function nextStep() {
-      const currentSection = steps[currentStep];
-      const inputs = currentSection.querySelectorAll('input, textarea');
+      const activeInputs = steps[currentStep].querySelectorAll('input[required]');
       let valid = true;
 
-      inputs.forEach(input => {
-        if (input.hasAttribute('required')) {
-          if (input.type === 'radio') {
-            const name = input.name;
-            const checked = currentSection.querySelector(`input[name="${name}"]:checked`);
-            if (!checked) valid = false;
-          } else if (!input.value.trim()) {
-            valid = false;
-          }
+      activeInputs.forEach(input => {
+        if (input.type === 'radio') {
+          const name = input.name;
+          const checked = steps[currentStep].querySelector(`input[name="${name}"]:checked`);
+          if (!checked) valid = false;
+        } else if (!input.value) {
+          valid = false;
         }
       });
 
@@ -424,35 +420,6 @@
       currentStep--;
       if (currentStep >= 0) {
         steps[currentStep].classList.add('active');
-      }
-    }
-
-    // Funciones auxiliares para efectos visuales al seleccionar opciones
-    function selectCard(card) {
-      const group = card.closest('.row');
-      group.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      const radio = card.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-    }
-
-    function selectRow(row) {
-      const group = row.closest('div');
-      group.querySelectorAll('.option-row').forEach(r => r.classList.remove('selected'));
-      row.classList.add('selected');
-      const radio = row.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-    }
-
-    function toggleCheckbox(row) {
-      const checkbox = row.querySelector('input[type="checkbox"]');
-      if (checkbox) {
-        checkbox.checked = !checkbox.checked;
-        if (checkbox.checked) {
-          row.classList.add('selected');
-        } else {
-          row.classList.remove('selected');
-        }
       }
     }
   </script>
