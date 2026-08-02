@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¡Gracias por su Opinión! - Centro de Videovigilancia</title>
+  <title>¡Gracias por tu participación! - Centro de Videovigilancia</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -26,37 +26,59 @@
     .card-modern {
       background: #ffffff;
       color: #002b7f;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-radius: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
       border: none;
       overflow: hidden;
       text-align: center;
-      padding: 30px 25px;
+      padding: 35px 25px;
+      position: relative;
+    }
+    /* Encabezado decorativo superior en la tarjeta */
+    .card-modern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #ffcc00, #198754, #002b7f);
     }
     .success-icon-box {
-      width: 80px;
-      height: 80px;
-      background-color: rgba(25, 135, 84, 0.1);
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, rgba(25, 135, 84, 0.15), rgba(25, 135, 84, 0.05));
       color: #198754;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin: 0 auto 20px auto;
-      box-shadow: 0 4px 15px rgba(25, 135, 84, 0.15);
+      box-shadow: 0 8px 20px rgba(25, 135, 84, 0.2);
+      animation: pulse-soft 2s infinite;
+    }
+    @keyframes pulse-soft {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     .card-modern h3 {
       font-weight: 900;
       color: #002b7f;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       margin-bottom: 12px;
+      letter-spacing: -0.5px;
     }
     .card-modern p {
       color: #4a5568;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1rem;
+      line-height: 1.6;
       margin-bottom: 25px;
+    }
+    .highlight-text {
+      color: #002b7f;
+      font-weight: 700;
     }
     .btn-action {
       background-color: #002b7f;
@@ -69,7 +91,7 @@
       font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      box-shadow: 0 6px 15px rgba(0, 43, 127, 0.3);
+      box-shadow: 0 6px 18px rgba(0, 43, 127, 0.35);
       transition: all 0.25s ease-in-out;
       display: flex;
       align-items: center;
@@ -84,19 +106,20 @@
       transform: translateY(-2px);
     }
     .emergency-box {
-      background: #f8f9fa;
+      background: #fdfefe;
       border: 2px dashed #ffcc00;
       border-radius: 16px;
-      padding: 15px;
+      padding: 16px;
       margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     }
     .emergency-title {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: #002b7f;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .btn-serenazgo {
       background-color: #001f5c;
@@ -124,13 +147,13 @@
     }
     .footer-info {
       margin-top: 15px;
-      font-size: 0.72rem;
-      color: #a0aec0;
+      font-size: 0.75rem;
+      color: #cbd5e1;
       text-align: center;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px;
+      gap: 8px;
     }
   </style>
 </head>
@@ -139,13 +162,13 @@
   <div class="main-container">
     <div class="card card-modern">
       
-      <!-- Icono de éxito moderno -->
+      <!-- Icono de éxito con animación suave -->
       <div class="success-icon-box">
-        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-solid fa-heart-circle-check"></i>
       </div>
 
-      <h3>¡Muchas Gracias!</h3>
-      <p>Su opinión ha sido registrada exitosamente. Esto nos ayuda a mejorar continuamente la atención y el profesionalismo en el Centro de Videovigilancia.</p>
+      <h3>¡Muchas Gracias, Vecino(a)!</h3>
+      <p>Tu opinión es el motor que nos impulsa a cambiar las cosas. Cada respuesta nos ayuda a corregir errores, mejorar el trato y brindar el servicio seguro y respetuoso que <span class="highlight-text">Ascensión</span> se merece.</p>
 
       <!-- Botón para volver al inicio -->
       <a href="/" class="btn btn-action">
@@ -155,17 +178,17 @@
       <!-- Bloque formal y moderno para emergencias y reportes -->
       <div class="emergency-box">
         <div class="emergency-title">
-          <i class="fa-solid fa-triangle-exclamation text-warning me-1"></i> ¿Algún reporte o emergencia?
+          <i class="fa-solid fa-shield-halved text-warning me-1"></i> ¿Necesitas apoyo o una emergencia?
         </div>
         <a href="tel:959499459" class="btn btn-serenazgo">
-          <i class="fa-solid fa-phone-volume"></i> 959 499 459
+          <i class="fa-solid fa-phone-volume"></i> Central Serenazgo: 959 499 459
         </a>
       </div>
 
     </div>
 
     <div class="footer-info">
-      <span><i class="fa-solid fa-location-dot"></i> Centro de Videovigilancia - Ascensión, Huancavelica</span>
+      <i class="fa-solid fa-location-dot"></i> <span>Centro de Videovigilancia - Municipalidad Distrital de Ascensión</span>
     </div>
   </div>
 
